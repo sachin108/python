@@ -16,3 +16,14 @@ even if errors occur.
 
 use these with the with statement.
 
+Context managers and the with statement aren’t limited to resource management. They allow you to provide and reuse 
+common setup and teardown code. You can use a context manager to handle any pair of operations that must occur before 
+and after a task or procedure:
+    Open and close
+    Lock and release
+    Change and reset
+    Create and delete
+    Enter and exit
+    Start and stop
+    Install and uninstall
+
