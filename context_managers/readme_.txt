@@ -26,4 +26,6 @@ and after a task or procedure:
     Enter and exit
     Start and stop
     Install and uninstall
+    push and pop
 
+Any time you see these pairs a context manager is the right abstraction.
