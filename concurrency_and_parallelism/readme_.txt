@@ -36,4 +36,8 @@ The GIL is a single lock on the interpreter itself which adds a rule that execut
 the interpreter lock. This prevents deadlocks (as there is only one lock) and doesn’t introduce much performance overhead. 
 But it effectively makes any CPU-bound Python program single-threaded.
 
+This mutex is necessary mainly because CPython's memory management is not thread-safe.
 
+Jython and IronPython have no GIL and can fully exploit multiprocessor systems
+PyPy currently has a GIL like CPython
+In Cython the GIL exists, but can be released temporarily using a "with" statement
