@@ -1,0 +1,12 @@
+Imagine a program that needs to read messages from a network and write them to disk. The program does not request a message when 
+it wants. It must be listening and accept messages as they come in. The messages will not come in at a regular pace, but will 
+be coming in bursts. This part of the program is called the producer.
+
+On the other side, once we have a message, need to write it to a database. The database access is slow, but fast enough to keep 
+up to the average pace of messages. It is not fast enough to keep up when a burst of messages comes in. This part is the consumer.
+
+In between the producer and the consumer, we will create a Pipeline that will be the part that changes as we learn about 
+different synchronization objects.
+
+1. Producer-Consumer Using Lock
+2. Producer-Consumer Using Queue

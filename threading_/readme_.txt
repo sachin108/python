@@ -28,3 +28,23 @@ A running thread may block in many ways, such as reading or writing from a file 
 primitive such as a semaphore or a lock. After blocking, the thread will run again.
 
 Finally, a thread may terminate once it has finished executing its code or by raising an error or exception.
+
+
+RACE CONDITIONS
+    To solve race conditions , find a way to allow only one thread at a time into the read-modify-write section of code. 
+    The most common way to do this is called Lock in Python. In some other languages this same idea is called a mutex. Mutex 
+    comes from MUTual EXclusion, which is exactly what a Lock does.
+
+    A Lock is an object that acts like a hall pass. Only one thread at a time can have the Lock. Any other thread that wants 
+    the Lock must wait until the owner of the Lock gives it up.
+
+    The basic functions to do this in python are .acquire() and .release()
+    A thread will call my_lock.acquire() to get the lock. If the lock is already held, the calling thread will wait until it 
+    is released. There’s an important point here. If one thread gets the lock but never gives it back, program will be stuck. 
+
+    Python’s Lock will also operate as a context manager, so we can use it in a with statement, and it gets released 
+    automatically when the with block exits for any reason.
+
+
+
+
