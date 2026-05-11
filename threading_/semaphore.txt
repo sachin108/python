@@ -1,0 +1,54 @@
+Think of a parking lot with 3 spaces. A sign at the entrance shows the count. Each car entering decrements it; each car leaving 
+increments it. When it hits 0, new cars wait at the gate. 
+That's a semaphore — a counter that controls how many threads (or tasks) can access something simultaneously.
+
+A semaphore maintains an internal counter that starts with your specified limit. When a coroutine wants to enter the 
+“protected zone,” it must first acquire the semaphore (counter decreases). When it’s done, it releases the semaphore 
+(counter increases). If the counter hits zero, any additional coroutines have to wait in line.
+
+    A coroutine is just a function that can pause and resume.
+
+    async def coroutine():
+        data = await client.get("https://api.example.com")  # pauses here
+        # while paused, the event loop runs other coroutines
+        print(data)                                          # resumes when data arrives
+
+    async def — declares "this function is a coroutine, it can pause"
+    await — marks "this is where I might pause"
+
+    Each coroutine pauses at await, the event loop launches the next one, and they all wait for their responses simultaneously. 
+    One thread, no parallelism, but the waiting overlaps.
+
+When multiple threads run concurrently, we need ways to prevent them from stepping on each other. Python gives a few 
+primitives for this:
+    Lock — only 1 thread can enter at a time 
+    Semaphore — up to N threads can enter at a time 
+
+A Lock is actually just a Semaphore with N=1.
+
+Async Semaphores — 
+    We’ve just deployed a new Python web scraper. It’s supposed to fetch data from 1000 APIs concurrently. You fire it up, and 
+    within seconds, we're getting HTTP 429 errors (Too Many Requests), server runs out of memory, and the target APIs start 
+    blocking IP. This is exactly the kind of scenario where semaphores shine.
+
+    Unlike traditional threading semaphores that block entire threads, asyncio semaphores are cooperative. When a coroutine 
+    can’t acquire a semaphore (because the limit is reached), it doesn’t block the entire program. Instead, it yields control 
+    back to the event loop, allowing other coroutines to continue running.
+
+    Threading approach: 7 chefs show up. 3 start cooking. The other 4 stand frozen in place. 
+                        They can't chop vegetables, wash dishes, or do anything until a stove opens up.
+
+                        When a thread calls sem.acquire() and the counter is 0, the OS suspends that thread entirely. It sits 
+                        frozen, consuming memory for its stack, doing absolutely nothing until it gets woken up. The OS is 
+                        in charge of deciding when threads run.
+
+
+    Asyncio approach: 1 chef manages all 7 dishes. He put 3 pots on the stoves. While those cook, the chef chops vegetables for 
+                        dish 4, plates dish 7, checks the recipe for dish 5. When a stove opens, he swaps the next pot in. 
+                        One person, but nothing is ever idle.
+
+                        Asyncio runs everything on a single thread using an event loop. When a coroutine hits await sem.acquire() 
+                        and the counter is 0, it doesn't freeze. It says "I can't proceed, here's control back to the event 
+                        loop" and the event loop immediately runs some other coroutine that can make progress.
+
+
