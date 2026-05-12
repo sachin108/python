@@ -3,28 +3,33 @@ It encompasses different models like threading, asynchronous tasks, and multipro
 trade-offs. In Python, threads and asynchronous tasks facilitate concurrency on a single processor, while multiprocessing allows 
 for true parallelism by utilizing multiple CPU cores.
 
-What Is Concurrency?
-    The dictionary definition of concurrency is simultaneous occurrence. In Python, the things that are occurring simultaneously 
-    are called by different names, including these:
-        Thread
-        Task
-        Process
+Parallelism consists of executing multiple operations at the same time.
 
-    Concurrency is a slightly broader term than parallelism, suggesting that multiple tasks have the ability to run in an overlapping 
-    manner. Concurrency doesn’t necessarily imply parallelism.
+Multiprocessing is a means of achieving parallelism that entails spreading tasks over a computer’s central processing unit (CPU) 
+cores. Multiprocessing is well-suited for CPU-bound tasks, such as tightly bound for loops and mathematical computations.
 
- threads and asynchronous tasks always run on a single processor, which means they can only run one at a time. 
- They just cleverly find ways to take turns to speed up the overall process. 
+Concurrency is a slightly broader term than parallelism, suggesting that multiple tasks have the ability to run in an overlapping 
+manner. Concurrency doesn’t necessarily imply parallelism.
 
- What about multiple CPU cores? How can we make use of them in Python? 
-    The answer is to execute separate processes!
+In Python, the things that are occurring simultaneously are called by different names, including these:
 
-A process can be thought of as almost a completely different program, though technically, it’s usually defined as a collection of 
-resources including memory, file handles, and things like that. One way to think about it is that each process runs in its own Python 
-interpreter.
+        1. Thread
+            threads and asynchronous tasks always run on a single processor, which means they can only run one at a time. 
+            They just cleverly find ways to take turns to speed up the overall process. 
+            Threading is a concurrent execution model in which multiple threads take turns executing tasks. A single process can 
+            contain multiple threads. Python’s relationship with threading is complicated due to the global interpreter lock (GIL).
 
-Because they’re different processes, each can run on a different CPU core. Running on a different core means that they can actually 
-run at the same time. 
+        2. Task
+
+        3. Process
+            What about multiple CPU cores? How can we make use of them in Python? 
+                The answer is to execute separate processes!
+                A process can be thought of as almost a completely different program, though technically, it’s usually defined as a 
+                collection of resources including memory, file handles, and things like that. One way to think about it is that each 
+                process runs in its own Python interpreter.
+                Because they’re different processes, each can run on a different CPU core. Running on a different core means that 
+                they can actually run at the same time. 
+
 
 Python Module	    CPU	    Multitasking	    Switching Decision
 --------------------------------------------------------------------------------------

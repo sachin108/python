@@ -1,0 +1,40 @@
+1.  asynchronous I/O, commonly called async I/O
+2.  async I/O isn’t threading or multiprocessing
+3.  Async I/O is a single-threaded, single-process technique that uses cooperative multitasking. Async I/O gives a feeling of 
+    concurrency despite using a single thread in a single process. Coroutines are a central feature of async I/O and can be 
+    scheduled concurrently, but they’re not inherently concurrent.
+
+4.  async I/O is a model of concurrent programming, but it’s not parallelism. 
+    Closely aligned with threading than with multiprocessing, but it’s different from both and is a standalone member of the 
+    concurrency ecosystem.
+
+What does it mean for something to be asynchronous?
+    Asynchronous routines can pause their execution while waiting for a result and allow other routines to run in the meantime.
+    Asynchronous code facilitates the concurrent execution of tasks by coordinating asynchronous routines.
+
+FOR EXAMPLE:
+    A girl hosts a chess exhibition in which she plays multiple amateur players. She has two ways of conducting the exhibition: 
+    synchronously and asynchronously.
+
+    Assumptions:
+        24 opponents
+        Host makes each chess move in 5 seconds
+        Opponents each take 55 seconds to make a move
+        Games average 30 pair-moves (60 moves total)
+
+        Synchronous version: Host plays one game at a time, never two at the same time, until the game is complete. Each game takes 
+                            (55 + 5) * 30 == 1800 seconds, or 30 minutes. The entire exhibition takes 24 * 30 == 720 minutes, 
+                            or 12 hours.
+
+        Asynchronous version: Host moves from table to table, making one move at each table. She leaves the table and lets the 
+                                opponent make their next move during the wait time. One move on all 24 games takes host 
+                                24 * 5 == 120 seconds, or 2 minutes. The entire exhibition is now cut down to 120 * 30 == 3600 seconds, 
+                                or just 1 hour. 
+
+Async I/O applies this principle to programming. In async I/O, a program’s event loop—more on that later—runs multiple tasks, 
+allowing each to take turns running at the optimal time.
+
+Async I/O takes long-running functions—like a complete chess game in the example above—that would block a program’s execution . 
+It manages them in a way so other functions can run during that downtime.
+
+Python’s async model is built around concepts such as callbacks, coroutines, events, transports, protocols, and futures.
