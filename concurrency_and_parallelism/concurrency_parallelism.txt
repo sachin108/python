@@ -10,6 +10,9 @@ What Is Concurrency?
         Task
         Process
 
+    Concurrency is a slightly broader term than parallelism, suggesting that multiple tasks have the ability to run in an overlapping 
+    manner. Concurrency doesn’t necessarily imply parallelism.
+
  threads and asynchronous tasks always run on a single processor, which means they can only run one at a time. 
  They just cleverly find ways to take turns to speed up the overall process. 
 
