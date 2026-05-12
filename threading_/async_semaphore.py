@@ -1,11 +1,11 @@
-# This will cause problems, because no concurrency control. All 1000 requests fire simultaneously, overwhelming both 
-# our system and the target API.
 import asyncio
 
 
 def fetch_data(url):
     pass
 
+# This will cause problems, because no concurrency control. All 1000 requests fire simultaneously, overwhelming both 
+# our system and the target API.
 async def bad_scraper():
     urls = [f"https://api.example.com/data/{i}" for i in range(1000)]
     tasks = [fetch_data(url) for url in urls]
