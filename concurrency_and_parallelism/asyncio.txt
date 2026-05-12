@@ -38,3 +38,10 @@ Async I/O takes long-running functions—like a complete chess game in the examp
 It manages them in a way so other functions can run during that downtime.
 
 Python’s async model is built around concepts such as callbacks, coroutines, events, transports, protocols, and futures.
+
+At the heart of async I/O is the concept of a coroutine.
+In Python, a coroutine is an object representing a computation that can be paused and resumed. Coroutines can be entered, exited, 
+and resumed at many different points. It’s the object we get when you call a coroutine function.
+
+Coroutine is an object that can suspend its execution and resume it later. In the meantime, it can pass the control to an event loop, 
+which can execute another coroutine. Coroutine objects result from calling a coroutine function, also known as an asynchronous function.
