@@ -1,0 +1,78 @@
+1. Encapsulation allows to bundle data (attributes) and behaviors (methods) within a class to create a 
+    cohesive unit. By defining methods to control access to attributes and its modification, encapsulation 
+    helps maintain data integrity and promotes modular, secure code.
+
+2. Inheritance enables the creation of hierarchical relationships between classes, allowing a subclass 
+    to inherit attributes and methods from a parent class. This promotes code reuse and reduces 
+    duplication.
+
+3. Abstraction focuses on hiding implementation details and exposing only the essential functionality of 
+    an object. By enforcing a consistent interface, abstraction simplifies interactions with objects, 
+    allowing developers to focus on what an object does rather than how it achieves its functionality.
+
+4. Polymorphism allows to treat objects of different types as instances of the same base type, as 
+    long as they implement a common interface or behavior. 
+    
+    Python’s duck typing make it especially suited for polymorphism, as it allows to access attributes 
+    and methods on objects without needing to worry about their actual class.
+
+----------------------
+Duck typing in python
+----------------------
+Duck typing is a core concept in Python rooted in the idea: 
+"If it walks like a duck and quacks like a duck, then it is a duck."
+
+In practice, it means Python doesn't check an object's type to determine if it can be used — it checks 
+whether the object has the required methods or behaviors. If the right method exists, the call succeeds 
+regardless of the object's class.
+
+Python is dynamically typed, so variable types are resolved at runtime, not compile time. This means there's no need for formal 
+interfaces or inheritance hierarchies to guarantee behavior. Instead of asking "are you a Duck?", Python just calls .quack() and 
+lets the object prove it can do the job. If it can't, we get an AttributeError at runtime.
+
+eg: 
+class Dog:
+    def speak(self):
+        return "Woof!"
+
+class Cat:
+    def speak(self):
+        return "Meow!"
+
+class Robot:
+    def speak(self):
+        return "Beep boop."
+
+def make_it_speak(thing):
+    print(thing.speak())  # doesn't care about the type
+
+make_it_speak(Dog())    # Woof!
+make_it_speak(Cat())    # Meow!
+make_it_speak(Robot())  # Beep boop.
+
+
+make_it_speak never checks isinstance(thing, Animal) — it just calls .speak(). Dog, Cat, and Robot share no common base class, yet 
+they all work because they each implement speak().
+
+----- same thing in java -------------------------------------------------------------------------------------------
+interface Speakable {
+    String speak();
+}
+
+class Dog implements Speakable {
+    public String speak() { return "Woof!"; }
+}
+
+class Cat implements Speakable {
+    public String speak() { return "Meow!"; }
+}
+
+class Robot implements Speakable {
+    public String speak() { return "Beep boop."; }
+}
+
+// The parameter MUST declare a type i.e. Speakable
+void makeItSpeak(Speakable thing) {
+    System.out.println(thing.speak());
+}
+------------------------------------------------------------------------------------------------------------------
